@@ -219,4 +219,41 @@ Resumindo, temos agora 9 sinais de controle.
 
 ### Exemplos
 
-1. 
+1.
+
+    0: lw $t0, 24($t0)
+           ˆ-- rt
+    1: add $t0, $t1, $t2
+            ˆ- rd
+
+2.
+
+    0: sw $t0, 24($t0)
+           ˆ-- rt
+    1: sub $t0, $t1, $t2
+            ˆ- rd
+
+3.
+
+    0: mul $s0, $s1, $s2
+                ---ˆ---> reg
+    0: lw $t0, 4($t1)    
+               |  ˆ- banco
+               ˆ---- extensor
+
+4.
+
+    1: sw $s0, 8($s1)
+           ˆ--> Deve ser escrito na memória de dados
+
+5.
+
+    1: lw $s0, 8($s1)
+               --ˆ--> O dado neste endereço será armazenado em $s0
+
+6.
+
+    0: add $t0, $t1, $t2
+                ---ˆ---- vem da ULA o resultado
+    1: lw $t0, 24($t0)
+               ---ˆ-- dado vem da memória
