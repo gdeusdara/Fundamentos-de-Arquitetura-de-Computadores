@@ -177,16 +177,19 @@ Os bits do sinal ALUOp são definidos pelo controlador principal com base na ins
 A primeira parte do controlador principal constiste em dividir a instrução a ser executada em partes distribuídas adequadamente pelo caminho de dados. Para cada classe de instrução, consideraremos a seguinte divisão:
 
 1. Instruções lógicas e aritméticas
+
     | op | rs | rt | rd | shamt | funct|
     |----|----|----|----|---|---|
     |31:26|25:21|20:16|15:11|10:6|5:0|
 
 2. Instruções de acesso à memória
+
     | op | rs | rt | Endereço |
     |----|----|----|----|
     |31:26|25:21|20:16|15:0|
 
 3. instruções de Desvio
+
     | op | rs | rt | Endereço |
     |----|----|----|----|
     |31:26|25:21|20:16|15:0|
