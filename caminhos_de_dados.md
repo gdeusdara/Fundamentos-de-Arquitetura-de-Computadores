@@ -65,6 +65,7 @@ Consideremos as instruções:
 * sw reg, offset(base)
 
 Essas instruções seguem o formato do tipo I
+
 | op | rs | rt | Endereço |
 |----|----|----|----|
 |6 bits|5 bits|5 bits |16 bits|
