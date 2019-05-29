@@ -1,0 +1,96 @@
+# Guilherme Antonio Deusdará Banci - 16/0122996
+
+# TRABALHO 02
+
+.data
+
+new_line:  .asciiz  "\n"
+bit: .asciiz "bit-paridade: "
+answer: .asciiz "saida: "
+wrong_input: .asciiz "entrada incorreta\n"
+
+.text 
+.globl main
+
+main:
+
+# leutura do inteiro desejado 
+li   $v0, 5 
+syscall 
+
+move $t0, $v0
+
+li $t5, 128
+
+slt $t4, $t0, $t5
+
+bne $t4, $zero, count
+
+la   $a0, wrong_input    
+li   $v0, 4
+syscall 
+
+j end
+
+count:
+move $t4, $t0 # $t4 = valor para iteraçao
+# t0 é o valor de entrada
+
+li $t1, 2 #t1 é o divisor 2
+li $t3, 0 # t3 é o contador de 1s no número
+
+integer2binary: 
+
+div $t4, $t1
+
+mfhi $t2 # resto da divição
+mflo $t4 # valor / 2
+
+beq $t2, $zero, not1
+addi $t3, $t3, 1 # se resto for = 0, nao adiciona ao contador
+not1:
+
+bne $t4, $zero, integer2binary
+
+div $t3, $t1 #dividindo o contador por 2
+
+mfhi $t2
+
+# print result
+la   $a0, bit    
+li   $v0, 4
+syscall
+
+move $a0, $t2
+li $v0, 1
+syscall
+
+la   $a0, new_line    
+li   $v0, 4
+syscall 
+
+la   $a0, answer    
+li   $v0, 4
+syscall 
+
+beq $t2, $zero, notadd
+addi $t0, $t0, 128
+
+notadd:
+
+move $a0, $t0
+li $v0, 1
+syscall
+
+la   $a0, new_line    
+li   $v0, 4
+syscall 
+
+end:
+li $v0, 10     
+syscall
+
+
+
+
+

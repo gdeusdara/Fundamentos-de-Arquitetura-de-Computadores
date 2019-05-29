@@ -1,0 +1,63 @@
+# Guilherme Deusdará - 16/0122996
+
+
+.data
+
+new_line: .asciiz "\n"
+wrong_input: .asciiz "Entrada invalida.\n"
+
+.text
+
+main:
+
+li $t6,32768
+li $t7,2
+
+li $v0, 5
+syscall
+move $t1, $v0
+
+sgt $t0,$t1,1
+slt $t2,$t1,$t6
+beq $t0,$t2,factorization
+
+la   $a0, wrong_input
+li   $v0, 4     
+syscall
+
+j end
+
+factorization:
+
+
+sgt $t0,$t1,1
+beq $t0,$zero,end
+
+rem $t3,$t1,$t7
+bne $t3,$zero,else
+
+move   $a0, $t7 
+li   $v0, 1     
+syscall 
+
+la   $a0, new_line  
+li   $v0, 4
+syscall 
+
+div $t1,$t7
+mflo $t1
+
+j factorization
+
+
+else:
+
+addi $t7,$t7,1
+
+j factorization
+
+
+end:
+
+li $v0, 10
+syscall
