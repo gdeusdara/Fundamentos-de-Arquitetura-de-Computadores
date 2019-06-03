@@ -257,3 +257,46 @@ Resumindo, temos agora 9 sinais de controle.
                 ---ˆ---- vem da ULA o resultado
     1: lw $t0, 24($t0)
                ---ˆ-- dado vem da memória
+
+O caminho de dados completo, com o controle da ULA e o central, é ilustrado no slide F. A combinação dos sinais de controle para cada classe de instruções, no slide 9. A operação do caminho de dados para as 3 classes é ilustrada no Slides 10-12.
+
+## Porque a implementação monociclo não é utilizada?
+
+Suponha que cada caminlgo de dados consuma os seguintes tempos:
+
+ * memória: 200ps
+ * ULAs: 100ps
+ * Banci de registradores: 50 ps.
+
+ Supondo que os demais componentes do caminho de dados não imputem atrasos ao sistema, qual implementação seria mais rápida?
+ Uma com ciclo de clock floxo ou variável? Consideremos que nossa arquitetura é composta por 25% de loads, 10% de stores, 45% de lógicas e aritméticas e 20% de desvios.
+
+ ### Relembrando:
+
+    Tempo de CPU    =  QTD. de    x  CPI  x  Período de clock
+    p/ um programa     Instruções    |= 1
+
+Calculando tempo que cada instrução consome:
+
+* tipo R: 200 + 50 + 100 + 50 = 400ps
+* load: 200 + 50 + 100 + 200 + 50 = 600ps
+* store: 200 + 50 + 100 + 200 = 550ps
+* desvio: 200 + 50 + 100 = 350ps
+
+**Monociclo**:
+
+* período de clock = 600ps
+* tempo de CPU programa = 600xI
+
+**Ciclo Variável**:
+
+* período de clock = 455ps
+* tempo de CPU programa = 455xI
+
+    Desempenho variável / Desempenho monociclo = tempo monociclo / tempo variável
+    = 455I / 600I = 1.32.
+
+Portanto, nesse caso, a implementação com ciclo variável é 1.32 vezes mais rápida que a monociclo. Ou seja, o trabalho de 1 dia de um processador monociclo seria feito em 
+
+    24h / 1.32 = 18.2h = 18h 12 min
+
